@@ -1,0 +1,16 @@
+class Solution {
+    public int characterReplacement(String s, int k) {
+        int l = 0;
+        Map<Character,Integer> map = new HashMap<>();
+        int res = 0;
+        for(int r = 0 ; r < s.length() ; r++){
+            map.put(s.charAt(r),map.getOrDefault(s.charAt(r),0)+1);
+            if(((r-l+1) - map.values().stream().max(Comparator.naturalOrder()).orElse(0)) > k){
+                map.put(s.charAt(l),map.get(s.charAt(l)) - 1);
+                l++;
+            }
+            res  = Math.max(res,r - l +1);
+        }
+        return res;
+    }
+}
